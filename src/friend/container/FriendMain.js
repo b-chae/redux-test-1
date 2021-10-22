@@ -7,7 +7,15 @@ import { addFriend } from "../state";
 export default function FriendMain() {
     const [, forceUpdate] = useReducer(v => v+1, 0)
     useEffect(() => {
-        const unsubscribe = store.subscribe(() => forceUpdate())
+        let prevFriends = store.getState().friend.friends
+        const unsubscribe = store.subscribe(() => {
+            // 책에서와 다르게 코딩한 부분
+            // prevFriends !== store.friends
+            if (prevFriends !== store.getState().friend.friends){
+                forceUpdate()
+            }
+            prevFriends = store.getState().friend.friends
+        })
         return () => unsubscribe()
     }, [])
 
