@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from "redux"
-import friendReducer from "../friend/state"
+import friendReducer from "../friend/state/state"
 import { timelineReducer } from "../timeline/state"
 
 const reducer = combineReducers({

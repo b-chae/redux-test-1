@@ -4,7 +4,8 @@ import { getNextFriend } from "../../common/mockData";
 import { MAX_AGE_LIMIT, MAX_SHOW_LIMIT } from "../common";
 import FriendList from "../component/friendList";
 import NumberSelect from "../component/NumberSelect";
-import { addFriend, setAgeLimit, setShowLimit } from "../state";
+import { getAgeLimit, getFriendsWithAgeLimit, getFriendsWithAgeShowLimit, getShowLimit } from "../state/selector";
+import { addFriend, setAgeLimit, setShowLimit } from "../state/state";
 
 export default function FriendMain() {
     const [
@@ -12,18 +13,12 @@ export default function FriendMain() {
         showLimit,
         friendsWithAgeLimit,
         friendsWithAgeShowLimit
-    ] = useSelector(state => {
-        const {friends, ageLimit, showLimit} = state.friend
-        const friendsWithAgeLimit = friends.filter(
-            friend => friend.age <= ageLimit
-        )
-        return [
-            ageLimit,
-            showLimit,
-            friendsWithAgeLimit,
-            friendsWithAgeLimit.slice(0, showLimit)
-        ]
-    }, shallowEqual)
+    ] = useSelector(state => [
+        getAgeLimit(state),
+        getShowLimit(state),
+        getFriendsWithAgeLimit(state),
+        getFriendsWithAgeShowLimit(state)
+    ], shallowEqual)
     const dispatch = useDispatch()
 
     function onAdd() {
