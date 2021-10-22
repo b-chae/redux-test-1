@@ -11,7 +11,8 @@ ReactDOM.render(
     // 리덕스의 상태값을 전달해준다.
     <Provider store={store}>
         <div>
-            <FriendMain />
+            <FriendMain ageLimit={30}/>
+            <FriendMain ageLimit={15}/>
             <TimelineMain />
         </div>
     </Provider>, 
