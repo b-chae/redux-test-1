@@ -1,14 +1,14 @@
-import React from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import React, { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getNextFriend } from "../../common/mockData";
 import { MAX_AGE_LIMIT, MAX_SHOW_LIMIT } from "../common";
 import FriendList from "../component/friendList";
-import NumberSelect from "../component/NumberSelect";
-import { getAgeLimit, getFriendsWithAgeLimit, getFriendsWithAgeShowLimit, getShowLimit } from "../state/selector";
-import { addFriend, setAgeLimit, setShowLimit } from "../state/state";
+import { makeGetFriendsWithAgeLimit } from "../state/selector";
+import { addFriend } from "../state/state";
 
 export default function FriendMain({ ageLimit }) {
-    const friendsWithAgeLimit = useSelector(state =>
+    const getFriendsWithAgeLimit = useMemo(makeGetFriendsWithAgeLimit, [])
+    const friendsWithAgeLimit = useSelector(state => 
         getFriendsWithAgeLimit(state, ageLimit))
     const dispatch = useDispatch()
 
