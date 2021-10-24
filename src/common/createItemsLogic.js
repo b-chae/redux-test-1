@@ -12,7 +12,9 @@ export default function createItemsLogic(name) {
     const reducer = createReducer(
         { [name]: []},
         {
-            [ADD]: (state, action) => state[name].push(action.item),
+            [ADD]: (state, action) => {
+                state[name].push(action.item)
+            },
             [REMOVE]: (state, action) => {
                 const index = state[name].findIndex(item => item.id === action.item.id)
                 state[name].splice(index, 1)
